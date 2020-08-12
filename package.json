@@ -10,16 +10,39 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:xmltoolstest.helloWorld"
+		"*"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [
-			{
-				"command": "xmltoolstest.helloWorld",
-				"title": "Hello World"
+		"configuration": {
+			"type": "object",
+			"title": "UI5 Language Assistant",
+			"properties": {
+				"UI5LanguageAssistant.trace.server": {
+					"scope": "window",
+					"type": "string",
+					"enum": [
+						"off",
+						"messages",
+						"verbose"
+					],
+					"default": "off",
+					"description": "Trace the communication between VS Code and the UI5 language server."
+				},
+				"UI5LanguageAssistant.codeAssist.deprecated": {
+					"scope": "resource",
+					"type": "boolean",
+					"default": false,
+					"description": "Include deprecated APIs in code assist."
+				},
+				"UI5LanguageAssistant.codeAssist.experimental": {
+					"scope": "resource",
+					"type": "boolean",
+					"default": false,
+					"description": "Include experimental APIs in code assist."
+				}
 			}
-		]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
@@ -43,7 +66,10 @@
 		"vscode-test": "^1.4.0"
 	},
 	"dependencies": {
+		"@ui5-language-assistant/language-server": "^1.10.0",
 		"@ui5-language-assistant/xml-views-completion": "^1.5.3",
-		"@xml-tools/content-assist": "^3.1.7"
+		"@xml-tools/content-assist": "^3.1.7",
+		"lodash": "^4.17.19",
+		"vscode-languageclient": "^6.1.3"
 	}
 }
